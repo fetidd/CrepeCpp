@@ -1,14 +1,16 @@
-export module Error;
+#pragma once
 
-import std;
+#include <string>
+#include <format>
+#include <expected>
 
-export enum class ErrorCode {
+enum class ErrorCode {
     UNKNOWN = 0,
     FILE_NOT_FOUND,
     INVALID_ARGUMENT,
 };
 
-export class ErrorType {
+class ErrorType {
 public:
     std::string message;
     ErrorCode code() const { return code_; };
@@ -16,7 +18,7 @@ protected:
     ErrorCode code_{ ErrorCode::UNKNOWN };
 };
 
-export class FileNotFound : public ErrorType {
+class FileNotFound : public ErrorType {
 public:
     FileNotFound(std::string file_path) {
         message = std::format("File {} not found!", file_path);
@@ -24,7 +26,7 @@ public:
     };
 };
 
-export class InvalidArgument : public ErrorType {
+class InvalidArgument : public ErrorType {
 public:
     InvalidArgument() {
         message = "Invalid argument";
@@ -32,6 +34,6 @@ public:
     }
 };
 
-export bool operator== (const ErrorType& lhs, const ErrorType& rhs) { return lhs.code() == rhs.code(); }
+bool operator== (const ErrorType& lhs, const ErrorType& rhs);
 
-export template <typename Exp> using Result = std::expected<Exp, ErrorType>;
+template <typename Exp> using Result = std::expected<Exp, ErrorType>;

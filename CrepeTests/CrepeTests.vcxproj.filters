@@ -15,29 +15,11 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Crepe.cpp">
+    <ClCompile Include="CrepeTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CrepeConfig.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Error.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Useful.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CrepeConfig.cpp">
+    <ClCompile Include="..\UsefulTest_.ixx">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Useful.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Error.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Text.txt" />
   </ItemGroup>
 </Project>
