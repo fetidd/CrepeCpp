@@ -56,7 +56,7 @@ std::vector<std::string> searchForPattern(std::vector<std::string>& lines, std::
 {
     std::regex pattern(pattern_str);
     std::vector<std::string> found{};
-    for (auto line : lines) {
+    for (auto& line : lines) {
         if (std::regex_search(line, pattern)) {
             found.push_back(line);
         }

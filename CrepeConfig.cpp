@@ -1,39 +1,34 @@
 #include "CrepeConfig.h"
 
-CrepeConfig::CrepeConfig(std::vector<std::string>& args)
+const std::string& CrepeConfig::getPattern()
 {
-    this->parse(args);
+    return this->pattern;
 }
 
-
-std::string CrepeConfig::getPattern()
+const std::string& CrepeConfig::getSearchFile()
 {
-    return this->m_pattern;
+    return this->search_file;
 }
-
-std::string CrepeConfig::getSearchFile()
-{
-    return this->m_search_file;
-}
-
 
 void CrepeConfig::setPattern(std::string ptn)
 {
-    this->m_pattern = ptn;
+    this->pattern = ptn;
 }
 
-Result<void> CrepeConfig::setSearchFile(std::string path)
+[[nodiscard]] Result<void> CrepeConfig::setSearchFile(std::string path)
 {
     if (path.size() == 0) return std::unexpected(InvalidArgument());
-    this->m_search_file = path;
+    this->search_file = path;
+    return {};
 }
 
-
-void CrepeConfig::parse(std::vector<std::string>& args)
+Result<void> CrepeConfig::parse(std::vector<std::string>& args)
 {
     if (args.size() < 3) throw std::invalid_argument("Need at least two arguments (pattern then file to search in)");
+    auto did_set = this->setSearchFile(args[2]);
+    if (!did_set) return did_set;
     this->setPattern(args[1]);
-    this->setSearchFile(args[2]);
+    return {};
 }
 
 Result<CrepeConfig> create(std::vector<std::string>& args) {
@@ -41,7 +36,8 @@ Result<CrepeConfig> create(std::vector<std::string>& args) {
         return std::unexpected(InvalidArgument());
     }
     else {
-        CrepeConfig cc(args);
+        CrepeConfig cc;
+        auto res = cc.parse(args); if (!res) return std::unexpected(res.error());
         return cc;
     }
 }

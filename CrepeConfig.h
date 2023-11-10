@@ -8,25 +8,19 @@
 
 class CrepeConfig {
 public:
-    CrepeConfig() = default;
-    CrepeConfig(std::vector<std::string>& args);
-
-    
-    std::string getPattern();
-    
-    std::string getSearchFile();
+    const std::string& getPattern();
+    const std::string& getSearchFile();
+    Result<void> parse(std::vector<std::string>& args);
 
 private:
-    std::string m_search_file;
-    std::string m_pattern;
-    bool        ignore_case;
+    std::string search_file{ "" };
+    std::string pattern{ "" };
+    bool        ignore_case{ false };
+    bool        use_regex{ false };
 
     void setPattern(std::string ptn);
-
-    Result<void> setSearchFile(std::string path);
-
+    [[nodiscard]] Result<void> setSearchFile(std::string path);
     
-    void parse(std::vector<std::string>& args);
 };
 
 Result<CrepeConfig> create(std::vector<std::string>& args);
